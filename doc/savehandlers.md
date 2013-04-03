@@ -95,7 +95,7 @@ Gets a list of all the homes of a player.
 
  1. Success (bool). `true` if successful and `false` otherwise.
  2. Error Message (string). The message if there was an error, `nil` if there was no error.
- 3. Homes (list). The names of the homes of the user, in a list.
+ 3. Homes (list). The names of the homes of the user, in a list. This is just an empty list if the player does not have any homes.
 
 ### Setup / Main Function
 
