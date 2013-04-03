@@ -45,8 +45,9 @@ function Initialize( Plugin )
 	-- Commands
 
 	PluginManager:BindCommand("/home", "bearhomes.home", HandleHomeCommand, "Go to a home.")
-	PluginManager:BindCommand("/home set", "bearhomes.home", HandleHomeCommand, "Main command for BearHomes.")
-	PluginManager:BindCommand("/home delete", "bearhomes.home", HandleHomeCommand, "Main command for BearHomes.")
+	PluginManager:BindCommand("/home set", "bearhomes.home", HandleHomeCommand, "Set a home.")
+	PluginManager:BindCommand("/home delete", "bearhomes.home", HandleHomeCommand, "Delete one of your homes.")
+	PluginManager:BindCommand("/home player", "bearhomes.home.otherplayer", HandleHomeCommand, "Go to another player's home.")
 
 	-- Save Handler Setup
 	--   Get Info
