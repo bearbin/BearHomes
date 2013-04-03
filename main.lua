@@ -54,7 +54,7 @@ function Initialize( Plugin )
 
 	HHANDLE.apiVer, HHANDLE.init, HHANDLE.load, HHANDLE.save, HHANDLE.delete = _G[HOMEHANDLER]() 
 
-	if HHANDLE.apiVer not == APIVER then
+	if HHANDLE.apiVer ~= APIVER then
 
 		LOGWARN( LOGPREFIX .. "Cannot use specified Save Handler, falling back to INISAVE." )
 		HHANDLE.apiVer, HHANDLE.init, HHANDLE.load, HHANDLE.save, HHANDLE.delete = _G["INISAVE"]() 
