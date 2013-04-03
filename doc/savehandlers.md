@@ -12,7 +12,8 @@ There are 5 required functions:
  2. A home loader function.
  3. A home saver function.
  4. A home deletion function.
- 5. A function that returns the other functions.
+ 5. A home list function.
+ 7. A function that returns the other functions.
 
 ### General Function Rules
 
@@ -81,6 +82,20 @@ Deletes the set home.
 
  1. Success (bool). `true` if successful and `false` otherwise.
  2. Error Message (string). The message if there was an error, `nil` if there was no error.
+
+### Home List
+
+Gets a list of all the homes of a player.
+
+#### Parameters
+
+ 1. Player (string). Name of the player who owns the homes.
+
+#### Return Values
+
+ 1. Success (bool). `true` if successful and `false` otherwise.
+ 2. Error Message (string). The message if there was an error, `nil` if there was no error.
+ 3. Homes (list). The names of the homes of the user, in a list.
 
 ### Setup / Main Function
 
