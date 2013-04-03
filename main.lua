@@ -21,10 +21,14 @@
 
 -- Configuration
 
+HOMEHANDLER = "INISAVE" -- Included handler is "INISAVE". Download more online or make your own.
+
 -- Globals
 
 PLUGIN = {}
 LOGPREFIX = ""
+HHANDLE = {}
+APIVER = 1
 
 -- Plugin Start
 
@@ -41,6 +45,23 @@ function Initialize( Plugin )
 	-- Commands
 
 	PluginManager:BindCommand("/home", "bearhomes.home", HandleHomeCommand, "Main command for BearHomes.")
+	PluginManager:BindCommand("/sethome", "bearhomes.home", HandleSethomeCommand, "Set home for BearHomes.")
+
+	-- Save Handler Setup
+	--   Get Info
+
+	HHANDLE.apiVer, HHANDLE.init, HHANDLE.load, HHANDLE.save, HHANDLE.delete = _G[HOMEHANDLER]() 
+
+	if HHANDLE.apiVer not == APIVER then
+
+		LOGWARN( LOGPREFIX .. "Cannot use specified Save Handler, falling back to INISAVE." )
+		HHANDLE.apiVer, HHANDLE.init, HHANDLE.load, HHANDLE.save, HHANDLE.delete = _G["INISAVE"]() 
+
+	end 
+
+	--   Run Init
+
+	HHANDLE.init()		
 
 	-- Finishing Up
 
