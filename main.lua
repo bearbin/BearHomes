@@ -59,7 +59,7 @@ function Initialize( Plugin )
 	-- Save Handler Setup
 	--   Get Info
 
-	HHANDLE.apiVer, HHANDLE.init, HHANDLE.load, HHANDLE.save, HHANDLE.delete, HHANDLE.list = INISAVE() 
+	HHANDLE.apiVer, HHANDLE.init, HHANDLE.load, HHANDLE.save, HHANDLE.delete, HHANDLE.list = _G[HOMEHANDLER]() 
 
 	if HHANDLE.apiVer ~= APIVER then
 

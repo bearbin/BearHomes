@@ -119,7 +119,7 @@ function INISAVEDELETE(playerName, homeName)
 	iniFile:ReadFile()
 
 	-- Delete the data from the INI file.
-	local success = DeleteValue( String Keyname, String Valuename )
+	local success = iniFile:DeleteValue( playerName, homeName )
 
 	-- Check to see success of deleting home.
 	if not success then
@@ -145,8 +145,8 @@ function INISAVELIST(playerName)
 
 	-- Find the homes.
 	local numValues = iniFile:NumValues(playerName)
-	for i = 0, numValues
-		table.insert(iniFile:ValueName(playerName, i)
+	for i = 0, numValues do
+		table.insert(homeList, iniFile:ValueName(playerName, i))
 	end
 
 	return true, nil, homeList
