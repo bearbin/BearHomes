@@ -19,36 +19,140 @@
 -- TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 -- SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
--- Configuration
+-- Nothing here yet...
 
--- Globals
+function INISAVESPLIT(string, pattern)
 
-PLUGIN = {}
-LOGPREFIX = ""
+	-- Define variables.
+	local table = {}  -- NOTE: use {n = 0} in Lua-5.0
+	local fpat = "(.-)" .. pattern
+	local last_end = 1
+	local s, e, cap = string:find(fpat, 1)
 
--- Plugin Start
+	-- Split the string.
+	while s do
+		if s ~= 1 or cap ~= "" then
+			table.insert(t,cap)
+		end
+		last_end = e+1
+		s, e, cap = string:find(fpat, last_end)
+	end
 
-function Initialize( Plugin )
+	if last_end <= #string then
+		cap = string:sub(last_end)
+		table.insert(t, cap)
+	end
 
-        PLUGIN = Plugin
-        PluginManager = cRoot:Get():GetPluginManager()
-
-        Plugin:SetName( "BearHomes" )
-        Plugin:SetVersion( 1 )
-
-	LOGPREFIX = "["..Plugin:GetName().."] "
-
-	-- Commands
-
-	PluginManager:BindCommand("/home", "bearhomes.home", HandleHomeCommand, "Main command for BearHomes.")
-
-	-- Finishing Up
-
-	LOGINFO( LOGPREFIX .. "Plugin v" .. Plugin:GetVersion() .. " Enabled!" )
-        return true
+	-- Return the table.
+	return t
 
 end
 
-function OnDisable()
-	LOGINFO( LOGPREFIX .. "Plugin Disabled!" )
+function INISAVEINIT()
+	-- We don't need no init function...
+	return true, nil
+end
+
+function INISAVESAVE( playerName, homeName, xCoord, yCoord, zCoord )
+
+	-- Make sure that the function has been called correctly.
+	assert( playerName ~= nil and homeName ~= nil and xCoord ~= nil and yCoord ~= nil and  zCoord ~= nil, "While setting home, not all values filled out." )
+
+	-- Join the coordinates.
+	combinedCoords = xCoord .. "," .. yCoord .. "," .. zCoord
+
+	-- Setup the cIniFile instance.
+	local iniFile = cIniFile( PLUGIN:GetLocalDirectory() .. "/homes.ini" )
+	iniFile:CaseInsensitive()
+	iniFile:ReadFile()
+	
+	-- Write the data to the Ini File.
+	local success = iniFile:SetValue( playerName, homeName, combinedCoords )
+	local success2 = iniFile:WriteFile()
+
+	-- Check to make sure that the data has been written, if not return an error.
+	if not success then
+		return false, "Data could not be written to the INI file."
+	else if not success2 then
+		return false, "The INI file could not be saved to disk."
+	end
+
+	-- Inidcate that the function has worked as intended.
+	return true, nil
+
+end
+
+function INISAVELOAD(playerName, homeName)
+
+	-- Make sure that the function has been called correctly.
+	assert( playerName ~= nil and homeName ~= nil, "While loading home, not all values filled out." )
+
+	-- Setup the cIniFile instance.
+	local iniFile = cIniFile( PLUGIN:GetLocalDirectory() .. "/homes.ini" )
+	iniFile:CaseInsensitive()
+	iniFile:ReadFile()
+
+	-- Get the data from the INI file.
+	local coords = iniFile:GetValueSet(playerName, homeName, "")
+
+	-- Make sure that the home exists.
+	if coords == "" then
+		return false, "Could not read home from file, it likely does not exist.", nil, nil, nil
+	end
+
+	-- Split the coordinates.
+	coords = INISAVESPLIT(coords, ",")
+
+	-- Return the success and the coordinates of the home.
+	return true, nil, coords[1], coords[2], coords[3]
+
+end
+
+function INISAVEDELETE(playerName, homeName)
+
+	-- Make sure that the function has been called correctly.
+	assert( playerName ~= nil and homeName ~= nil, "While deleting home, not all values filled out." )
+
+	-- Setup the cIniFile instance.
+	local iniFile = cIniFile( PLUGIN:GetLocalDirectory() .. "/homes.ini" )
+	iniFile:CaseInsensitive()
+	iniFile:ReadFile()
+
+	-- Delete the data from the INI file.
+	local success = DeleteValue( String Keyname, String Valuename )
+
+	-- Check to see success of deleting home.
+	if not success then
+		return false, "Could not delete home, does it exist?"
+	end
+
+	-- Write back to the INI file.
+	iniFile:WriteFile()
+
+	-- Return our success.
+	return true, nil
+
+end
+
+function INISAVELIST(playerName)
+
+	local homeList = {}
+
+	-- Setup the cIniFile instance.
+	local iniFile = cIniFile( PLUGIN:GetLocalDirectory() .. "/homes.ini" )
+	iniFile:CaseInsensitive()
+	iniFile:ReadFile()
+
+	-- Find the homes.
+	local numValues = iniFile:NumValues(playerName)
+	for i = 0, numValues
+		table.insert(iniFile:ValueName(playerName, i)
+	end
+
+	return true, nil, homeList
+
+end
+
+function INISAVE()
+	return 1, INISAVEINIT, INISAVESAVE, INISAVELOAD, INISAVEDELETE, INISAVELIST
 end

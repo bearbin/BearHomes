@@ -18,7 +18,7 @@ There are 5 required functions:
 ### General Function Rules
 
  * All functions must be in all CAPS.
- * All functions must be prefixed with your handler name (for example INILOAD, INISAVE, etc).
+ * All functions must be prefixed with your handler name (for example INISAVELOAD, INISAVESAVE, INISAVEINIT, etc).
 
 ### Init
 
@@ -59,7 +59,7 @@ It must overwrite any homes previously saved under the same name.
 #### Parameters
 
  1. Player (string). Name of the player who will own the home.
- 2. Home Name (string). Blank home names must be accepted also.
+ 2. Home Name (string).
  3. X Coordinate (number). The x coordinate of the home. 
  4. Y Coordinate (number). The y coordinate of the home. 
  5. Z Coordinate (number). The z coordinate of the home. 
@@ -111,4 +111,5 @@ None
  2. Init (function). The Init function.
  3. Home Save (function). The home saver function.
  4. Home Load (function). The home loader function.
+ 5. Home List (function). The home list function.
  5. Home Delete (function). The home deletion function.

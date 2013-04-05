@@ -22,6 +22,12 @@
 -- Configuration
 
 HOMEHANDLER = "INISAVE" -- Included handler is "INISAVE". Download more online or make your own.
+MULTIHOME = {}
+table.insert(MULTIHOME, 2) -- Rank one for multiple homes.
+table.insert(MULTIHOME, 3) -- Rank two for multiple homes.
+table.insert(MULTIHOME, 4) -- Rank threee for multiple homes.
+table.insert(MULTIHOME, 5) -- Rank four for multiple homes.
+table.insert(MULTIHOME, 6) -- Rank five for multiple homes.
 
 -- Globals
 
@@ -45,19 +51,20 @@ function Initialize( Plugin )
 	-- Commands
 
 	PluginManager:BindCommand("/home", "bearhomes.home", HandleHomeCommand, "Go to a home.")
-	PluginManager:BindCommand("/home set", "bearhomes.home", HandleHomeCommand, "Set a home.")
-	PluginManager:BindCommand("/home delete", "bearhomes.home", HandleHomeCommand, "Delete one of your homes.")
+	PluginManager:BindCommand("/home set", "bearhomes.home.set", HandleHomeCommand, "Set a home.")
+	PluginManager:BindCommand("/home list", "bearhomes.home.list", HandleHomeCommand, "List your homes."
+	PluginManager:BindCommand("/home delete", "bearhomes.home.delete", HandleHomeCommand, "Delete one of your homes.")
 	PluginManager:BindCommand("/home player", "bearhomes.home.otherplayer", HandleHomeCommand, "Go to another player's home.")
 
 	-- Save Handler Setup
 	--   Get Info
 
-	HHANDLE.apiVer, HHANDLE.init, HHANDLE.load, HHANDLE.save, HHANDLE.delete = _G[HOMEHANDLER]() 
+	HHANDLE.apiVer, HHANDLE.init, HHANDLE.load, HHANDLE.save, HHANDLE.delete, HHANDLE.list = _G[HOMEHANDLER]() 
 
 	if HHANDLE.apiVer ~= APIVER then
 
 		LOGWARN( LOGPREFIX .. "Cannot use specified Save Handler, falling back to INISAVE." )
-		HHANDLE.apiVer, HHANDLE.init, HHANDLE.load, HHANDLE.save, HHANDLE.delete = _G["INISAVE"]() 
+		HHANDLE.apiVer, HHANDLE.init, HHANDLE.load, HHANDLE.save, HHANDLE.list, HHANDLE.delete = _G["INISAVE"]() 
 
 	end 
 
