@@ -73,7 +73,7 @@ function INISAVESAVE( playerName, homeName, xCoord, yCoord, zCoord )
 	-- Check to make sure that the data has been written, if not return an error.
 	if not success then
 		return false, "Data could not be written to the INI file."
-	else if not success2 then
+	elseif not success2 then
 		return false, "The INI file could not be saved to disk."
 	end
 

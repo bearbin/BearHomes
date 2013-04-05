@@ -144,7 +144,7 @@ function HandleHomeCommand(Split, Player)
 
 		end
 
-	else if Split[2] == "list" then
+	elseif Split[2] == "list" then
 
 		if Player:HasPermission("bearhomes.home.list") ~= true then
 			Player:SendMessage( cChatColor.Yellow .. "You don't have permissions to do this action." )
@@ -156,10 +156,11 @@ function HandleHomeCommand(Split, Player)
 		if not success then
 			Player:SendMessage( cChatColor.Yellow .. "Cannot list homes: " .. errorMsg )
 			return false
-		else if #homeList == 0 then
+		end
+
+		if #homeList == 0 then
 			Player:SendMessage( cChatColor.Yellow .. "You don't have any homes." )
-		else
-			Player:SendMessage( cChatColor.Yellow .. "You don't have permissions to do this action." )
+			return false
 		end
 
 		for i = 1, #homeList do
@@ -168,7 +169,7 @@ function HandleHomeCommand(Split, Player)
 
 		return true
 
-	else if Split[2] == "delete" then
+	elseif Split[2] == "delete" then
 
 		if Player:HasPermission("bearhomes.home.delete") ~= true then
 			Player:SendMessage( cChatColor.Yellow .. "You don't have permissions to do this action." )
@@ -178,7 +179,7 @@ function HandleHomeCommand(Split, Player)
 		if Split[3] ~= nil then
 			success, errorMessage = HHANDLE.delete(Player:GetName(), Split[3])
 		else
-			success, errorMessage = HHANDLE.delete(Player:GetName, "main")
+			success, errorMessage = HHANDLE.delete(Player:GetName(), "main")
 		end
 
 		if not success then
@@ -189,7 +190,7 @@ function HandleHomeCommand(Split, Player)
 			return true
 		end
 
-	else if Split[2] == "player" then
+	elseif Split[2] == "player" then
 
 		if Player:HasPermission("bearhomes.home.otherplayer") ~= true then
 			Player:SendMessage( cChatColor.Yellow .. "You don't have permissions to do this action." )

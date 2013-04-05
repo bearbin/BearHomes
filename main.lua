@@ -52,14 +52,14 @@ function Initialize( Plugin )
 
 	PluginManager:BindCommand("/home", "bearhomes.home", HandleHomeCommand, "Go to a home.")
 	PluginManager:BindCommand("/home set", "bearhomes.home.set", HandleHomeCommand, "Set a home.")
-	PluginManager:BindCommand("/home list", "bearhomes.home.list", HandleHomeCommand, "List your homes."
+	PluginManager:BindCommand("/home list", "bearhomes.home.list", HandleHomeCommand, "List your homes.")
 	PluginManager:BindCommand("/home delete", "bearhomes.home.delete", HandleHomeCommand, "Delete one of your homes.")
 	PluginManager:BindCommand("/home player", "bearhomes.home.otherplayer", HandleHomeCommand, "Go to another player's home.")
 
 	-- Save Handler Setup
 	--   Get Info
 
-	HHANDLE.apiVer, HHANDLE.init, HHANDLE.load, HHANDLE.save, HHANDLE.delete, HHANDLE.list = _G[HOMEHANDLER]() 
+	HHANDLE.apiVer, HHANDLE.init, HHANDLE.load, HHANDLE.save, HHANDLE.delete, HHANDLE.list = INISAVE() 
 
 	if HHANDLE.apiVer ~= APIVER then
 
