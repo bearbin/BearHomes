@@ -21,7 +21,7 @@
 
 function IsSpecial(homeName)
 
-	if (homeName == "list") or (homeName == "main") or (homeName == "delete") or (homeName == "player") or (homeName "set") then
+	if (homeName == "list") or (homeName == "main") or (homeName == "delete") or (homeName == "player") or (homeName == "set") then
 		return true
 	else
 		return false
@@ -31,7 +31,12 @@ end
 
 function CanSetHome(Player)
 
-	local homeList = HHANDLE.list(Player:GetName())
+	local success, errorMsg, homeList = HHANDLE.list(Player:GetName())
+
+	if not success then
+		return false
+	end	
+
 	local homeNumber = #homeList
 
 	if Player:HasPermission("bearhomes.home.set.multiple.1") then
@@ -114,7 +119,7 @@ function HandleHomeCommand(Split, Player)
 				return true
 			end
 
-			Player:SendMessage( cChatColor.Yellow .. "Home " .. Split[3] .. "set." )
+			Player:SendMessage( cChatColor.Yellow .. "Home " .. Split[3] .. " set." )
 			return true
 
 		else
@@ -157,7 +162,7 @@ function HandleHomeCommand(Split, Player)
 		end
 
 		for i = 1, #homeList do
-			Player:SendMessage( cChatColour.Yellow .. homeList[i] )
+			Player:SendMessage( cChatColor.Yellow .. homeList[i] )
 		end
 
 		return true
@@ -217,8 +222,8 @@ function HandleHomeCommand(Split, Player)
 			return true
 		end
 
-		if Split[3] ~= nil then
-			success, errorMsg, x, y, z = HHANDLE.load(Player:GetName(), Split[3])
+		if Split[2] ~= nil then
+			success, errorMsg, x, y, z = HHANDLE.load(Player:GetName(), Split[2])
 		else
 			success, errorMsg, x, y, z = HHANDLE.load(Player:GetName(), "main")
 		end

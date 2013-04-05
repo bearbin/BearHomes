@@ -24,7 +24,7 @@
 function INISAVESPLIT(string, pattern)
 
 	-- Define variables.
-	local table = {}  -- NOTE: use {n = 0} in Lua-5.0
+	local t = {}  -- NOTE: use {n = 0} in Lua-5.0
 	local fpat = "(.-)" .. pattern
 	local last_end = 1
 	local s, e, cap = string:find(fpat, 1)
@@ -146,7 +146,8 @@ function INISAVELIST(playerName)
 	-- Find the homes.
 	local numValues = iniFile:NumValues(playerName)
 	for i = 0, numValues do
-		table.insert(homeList, iniFile:ValueName(playerName, i))
+		local tempVal = iniFile:ValueName(playerName, i)
+		table.insert(homeList, tempVal)
 	end
 
 	return true, nil, homeList
@@ -154,5 +155,5 @@ function INISAVELIST(playerName)
 end
 
 function INISAVE()
-	return 1, INISAVEINIT, INISAVESAVE, INISAVELOAD, INISAVEDELETE, INISAVELIST
+	return 1, INISAVEINIT, INISAVELOAD, INISAVESAVE, INISAVEDELETE, INISAVELIST
 end
