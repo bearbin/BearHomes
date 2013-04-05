@@ -22,7 +22,7 @@
 -- Configuration
 
 HOMEHANDLER = "INISAVE" -- Included handler is "INISAVE". Download more online or make your own.
-MULTIHOME = {}
+MULTIHOME = {} -- Please ignore.
 table.insert(MULTIHOME, 2) -- Rank one for multiple homes.
 table.insert(MULTIHOME, 3) -- Rank two for multiple homes.
 table.insert(MULTIHOME, 4) -- Rank threee for multiple homes.
@@ -44,7 +44,7 @@ function Initialize( Plugin )
         PluginManager = cRoot:Get():GetPluginManager()
 
         Plugin:SetName( "BearHomes" )
-        Plugin:SetVersion( 1 )
+        Plugin:SetVersion( 1 ) -- Yeah, v1 plugins FTW!
 
 	LOGPREFIX = "["..Plugin:GetName().."] "
 
@@ -68,7 +68,7 @@ function Initialize( Plugin )
 
 	end 
 
-	--   Run Init
+	--   Initialize the Save Handler
 
 	HHANDLE.init()		
 
