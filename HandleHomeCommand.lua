@@ -86,19 +86,12 @@ end
 
 function HandleHomeCommand(Split, Player)
 
-	if #Split < 2 then
-
-		Player:SendMessage(cChatColor.Yellow .. "Usage: /home <subcommand>")
-		return true
-
-	end
-
 	if Split[2] == "set" then
 
 		if Player:HasPermission("bearhomes.home.set") ~= true then
 
 			Player:SendMessage( cChatColor.Yellow .. "You don't have permissions to do this action." )
-			return false
+			return true
 
 		end
 
@@ -106,19 +99,19 @@ function HandleHomeCommand(Split, Player)
 
 			if IsSpecial(Split[3]) then
 				Player:SendMessage( cChatColor.Yellow .. "You can't call a home that!" )
-				return false
+				return true
 			end
 
 			if CanSetHome(Player) ~= true then
 				Player:SendMessage( cChatColor.Yellow .. "You can't set any more homes. Delete one and try again." )
-				return false
+				return true
 			end
 
 			local playerPos = Player:GetEyePosition()
 			success, errorMsg = HHANDLE.set(Player:GetName(), Split[3], playerPos.x, playerPos.y, playerPos.z)
 			if not success then
 				Player:SendMessage( cChatColor.Yellow .. "Home cannot be set: " .. errorMsg )
-				return false
+				return true
 			end
 
 			Player:SendMessage( cChatColor.Yellow .. "Home " .. Split[3] .. "set." )
@@ -128,7 +121,7 @@ function HandleHomeCommand(Split, Player)
 
 			if CanSetHome(Player) ~= true then
 				Player:SendMessage( cChatColor.Yellow .. "You can't set any more homes. Delete one and try again." )
-				return false
+				return true
 			end
 
 			local playerPos = Player:GetEyePosition()
@@ -136,7 +129,7 @@ function HandleHomeCommand(Split, Player)
 
 			if not success then
 				Player:SendMessage( cChatColor.Yellow .. "Home cannot be set: " .. errorMsg )
-				return false
+				return true
 			else
 				Player:SendMessage( cChatColor.Yellow .. "Home set." )
 				return true
@@ -148,19 +141,19 @@ function HandleHomeCommand(Split, Player)
 
 		if Player:HasPermission("bearhomes.home.list") ~= true then
 			Player:SendMessage( cChatColor.Yellow .. "You don't have permissions to do this action." )
-			return false
+			return true
 		end
 
 		local success, errorMsg, homeList = HHANDLE.list(Player:GetName())
 
 		if not success then
 			Player:SendMessage( cChatColor.Yellow .. "Cannot list homes: " .. errorMsg )
-			return false
+			return true
 		end
 
 		if #homeList == 0 then
 			Player:SendMessage( cChatColor.Yellow .. "You don't have any homes." )
-			return false
+			return true
 		end
 
 		for i = 1, #homeList do
@@ -173,18 +166,18 @@ function HandleHomeCommand(Split, Player)
 
 		if Player:HasPermission("bearhomes.home.delete") ~= true then
 			Player:SendMessage( cChatColor.Yellow .. "You don't have permissions to do this action." )
-			return false
+			return true
 		end
 
 		if Split[3] ~= nil then
-			success, errorMessage = HHANDLE.delete(Player:GetName(), Split[3])
+			success, errorMsg = HHANDLE.delete(Player:GetName(), Split[3])
 		else
-			success, errorMessage = HHANDLE.delete(Player:GetName(), "main")
+			success, errorMsg = HHANDLE.delete(Player:GetName(), "main")
 		end
 
 		if not success then
 			Player:SendMessage( cChatColor.Yellow .. "Cannot delete home: " .. errorMsg )
-			return false
+			return true
 		else
 			Player:SendMessage( cChatColor.Yellow .. "Home: " .. Split[3] .. " Deleted!" )
 			return true
@@ -194,23 +187,23 @@ function HandleHomeCommand(Split, Player)
 
 		if Player:HasPermission("bearhomes.home.otherplayer") ~= true then
 			Player:SendMessage( cChatColor.Yellow .. "You don't have permissions to do this action." )
-			return false
+			return true
 		end
 
 		if Split[3] == nil then
 			Player:SendMessage( cChatColor.Yellow .. "You need to enter the name of the person whose home you want to visit." )
-			return false
+			return true
 		end
 
 		if Split[4] ~= nil then
-			success, errorMessage, x, y, z = HHANDLE.load(Split[3], Split[4])
+			success, errorMsg, x, y, z = HHANDLE.load(Split[3], Split[4])
 		else
-			success, errorMessage, x, y, z = HHANDLE.load(Split[3], "main")
+			success, errorMsg, x, y, z = HHANDLE.load(Split[3], "main")
 		end
 
 		if not success then
 			Player:SendMessage( cChatColor.Yellow .. "Cannot go to home: " .. errorMsg )
-			return false
+			return true
 		end
 
 		Player:TeleportTo(x, y, z)
@@ -221,18 +214,18 @@ function HandleHomeCommand(Split, Player)
 
 		if Player:HasPermission("bearhomes.home") ~= true then
 			Player:SendMessage( cChatColor.Yellow .. "You don't have permissions to do this action." )
-			return false
+			return true
 		end
 
 		if Split[3] ~= nil then
-			success, errorMessage, x, y, z = HHANDLE.load(Player:GetName(), Split[3])
+			success, errorMsg, x, y, z = HHANDLE.load(Player:GetName(), Split[3])
 		else
-			success, errorMessage, x, y, z = HHANDLE.load(Player:GetName(), "main")
+			success, errorMsg, x, y, z = HHANDLE.load(Player:GetName(), "main")
 		end
 
 		if not success then
 			Player:SendMessage( cChatColor.Yellow .. "Cannot go to home: " .. errorMsg )
-			return false
+			return true
 		end
 
 		Player:TeleportTo(x, y, z)
@@ -242,6 +235,7 @@ function HandleHomeCommand(Split, Player)
 
 	end	
 
-	return false
-
+	Player:SendMessage(cChatColor.Yellow .. "Usage: /home <subcommand>")
+	return true
+	
 end
