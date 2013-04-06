@@ -67,11 +67,12 @@ function INISAVESAVE( playerName, homeName, xCoord, yCoord, zCoord )
 	iniFile:ReadFile()
 	
 	-- Write the data to the Ini File.
-	local success = iniFile:SetValue( playerName, homeName, combinedCoords )
+	iniFile:DeleteValue( playerName, homeName )
+	local success1 = iniFile:SetValue( playerName, homeName, combinedCoords )
 	local success2 = iniFile:WriteFile()
 
 	-- Check to make sure that the data has been written, if not return an error.
-	if not success then
+	if not success1 then
 		return false, "Data could not be written to the INI file."
 	elseif not success2 then
 		return false, "The INI file could not be saved to disk."
