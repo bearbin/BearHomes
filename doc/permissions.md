@@ -11,6 +11,7 @@ Basic Permissions
  * `bearhomes.home.list` - Allows users to see a list of their homes.
  * `bearhomes.home.delete` - Allows users to delete their homes.
  * `bearhomes.home.otherplayer` - Allows users to go to a home of another player.
+ * `bearhomes.home.cooldown.exempt` - Allows users to be exempt from having to wait for their homes to cool down after use. Cooldowns can also be disabled in the settings.
 
 MultiHome Permissions
 ---------------------
