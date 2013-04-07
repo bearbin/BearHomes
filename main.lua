@@ -61,12 +61,12 @@ function Initialize( Plugin )
 	-- Save Handler Setup
 	--   Get Info
 
-	HHANDLE.apiVer, HHANDLE.init, HHANDLE.load, HHANDLE.set, HHANDLE.delete, HHANDLE.list = _G[HOMEHANDLER]() 
+	HHANDLE.apiVer, HHANDLE.init, HHANDLE.load, HHANDLE.set, HHANDLE.delete, HHANDLE.list, HHANDLE.disable = _G[HOMEHANDLER]() 
 
 	if HHANDLE.apiVer ~= APIVER then
 
 		LOGWARN( LOGPREFIX .. "Cannot use specified Save Handler, falling back to INISAVE." )
-		HHANDLE.apiVer, HHANDLE.init, HHANDLE.load, HHANDLE.save, HHANDLE.list, HHANDLE.delete = _G["INISAVE"]() 
+		HHANDLE.apiVer, HHANDLE.init, HHANDLE.load, HHANDLE.save, HHANDLE.delete, HHANDLE.list, HHANDLE.disable = _G["INISAVE"]() 
 
 	end 
 
@@ -82,5 +82,6 @@ function Initialize( Plugin )
 end
 
 function OnDisable()
+	HHANDLE.disable()
 	LOGINFO( LOGPREFIX .. "Plugin Disabled!" )
 end

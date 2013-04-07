@@ -53,6 +53,10 @@ function INISAVEINIT()
 	return true, nil
 end
 
+function INISAVEDISABLE()
+	return
+end
+
 function INISAVESAVE( playerName, homeName, xCoord, yCoord, zCoord )
 
 	-- Make sure that the function has been called correctly.
@@ -156,5 +160,5 @@ function INISAVELIST(playerName)
 end
 
 function INISAVE()
-	return 1, INISAVEINIT, INISAVELOAD, INISAVESAVE, INISAVEDELETE, INISAVELIST
+	return 1, INISAVEINIT, INISAVELOAD, INISAVESAVE, INISAVEDELETE, INISAVELIST, INISAVEDISABLE
 end

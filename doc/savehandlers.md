@@ -13,7 +13,8 @@ There are 5 required functions:
  3. A home saver function.
  4. A home deletion function.
  5. A home list function.
- 7. A function that returns the other functions.
+ 6. A function that returns the other functions.
+ 7. A function to be called on disablement.
 
 ### General Function Rules
 
@@ -32,6 +33,18 @@ None
 
  1. Success (bool). `true` if successful and `false` otherwise.
  2. Error Message (string). The message if there was an error, `nil` if there was no error.
+
+### Disable
+
+This is called when the server is shutting down.
+
+#### Parameters
+
+None
+
+#### Return Values
+
+None
 
 ### Home Loader
 
@@ -112,4 +125,5 @@ None
  3. Home Save (function). The home saver function.
  4. Home Load (function). The home loader function.
  5. Home List (function). The home list function.
- 5. Home Delete (function). The home deletion function.
+ 6. Home Delete (function). The home deletion function.
+ 7. Disable (function). The disable function.
