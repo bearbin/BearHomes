@@ -28,7 +28,6 @@ table.insert(MULTIHOME, 3) -- Rank two for multiple homes.
 table.insert(MULTIHOME, 4) -- Rank threee for multiple homes.
 table.insert(MULTIHOME, 5) -- Rank four for multiple homes.
 table.insert(MULTIHOME, 6) -- Rank five for multiple homes.
-COOLDOWN = 0 -- Seconds between each /home. Set to zero to disable. Cooldowns can be disabled for one player using permissions.
 
 -- Globals
 

@@ -236,13 +236,6 @@ function HandleHomeCommand(Split, Player)
 			return true
 		end
 
-		-- Check to see that the player's home does not need to cool down.
-		if GetTime() - HOMEVISITTIME[Player:GetName()] < COOLDOWN and not Player:HasPermission("bearhomes.home.cooldown.exempt") then
-			Player:SendMessage( cChatColor.Yellow .. "You need to wait " .. GetTime() - HOMEVISITTIME[Player:GetName()] .. " more seconds until you can go home." )
-		else
-			HOMEVISITTIME[Player:GetName()] = GetTime()
-		end
-
 		-- Teleport the player.
 		Player:TeleportTo(x, y, z)
 		Player:SendMessage( cChatColor.Yellow .. "Went home!" )
@@ -267,13 +260,6 @@ function HandleHomeCommand(Split, Player)
 		if not success then
 			Player:SendMessage( cChatColor.Yellow .. "Cannot go to home: " .. errorMsg )
 			return true
-		end
-
-		-- Check to see that the player's home does not need to cool down.
-		if GetTime() - HOMEVISITTIME[Player:GetName()] < COOLDOWN and not Player:HasPermission("bearhomes.home.cooldown.exempt") then
-			Player:SendMessage( cChatColor.Yellow .. "You need to wait " .. GetTime() - HOMEVISITTIME[Player:GetName()] .. " more seconds until you can go home." )
-		else
-			HOMEVISITTIME[Player:GetName()] = GetTime()
 		end
 
 		-- Teleport the player.
