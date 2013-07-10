@@ -28,7 +28,6 @@ table.insert(MULTIHOME, 3) -- Rank two for multiple homes.
 table.insert(MULTIHOME, 4) -- Rank threee for multiple homes.
 table.insert(MULTIHOME, 5) -- Rank four for multiple homes.
 table.insert(MULTIHOME, 6) -- Rank five for multiple homes.
-COOLDOWN = 0 -- Seconds between each /home. Set to zero to disable. Cooldowns can be disabled for one player using permissions.
 
 -- Globals
 
@@ -61,12 +60,12 @@ function Initialize( Plugin )
 	-- Save Handler Setup
 	--   Get Info
 
-	HHANDLE.apiVer, HHANDLE.init, HHANDLE.load, HHANDLE.set, HHANDLE.delete, HHANDLE.list = _G[HOMEHANDLER]() 
+	HHANDLE.apiVer, HHANDLE.init, HHANDLE.load, HHANDLE.set, HHANDLE.delete, HHANDLE.list, HHANDLE.disable = _G[HOMEHANDLER]() 
 
 	if HHANDLE.apiVer ~= APIVER then
 
 		LOGWARN( LOGPREFIX .. "Cannot use specified Save Handler, falling back to INISAVE." )
-		HHANDLE.apiVer, HHANDLE.init, HHANDLE.load, HHANDLE.save, HHANDLE.list, HHANDLE.delete = _G["INISAVE"]() 
+		HHANDLE.apiVer, HHANDLE.init, HHANDLE.load, HHANDLE.save, HHANDLE.delete, HHANDLE.list, HHANDLE.disable = _G["INISAVE"]() 
 
 	end 
 
@@ -82,5 +81,6 @@ function Initialize( Plugin )
 end
 
 function OnDisable()
+	HHANDLE.disable()
 	LOGINFO( LOGPREFIX .. "Plugin Disabled!" )
 end
